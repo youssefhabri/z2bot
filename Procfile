@@ -1,0 +1,1 @@
+worker: go build && ./anitrend-bot
