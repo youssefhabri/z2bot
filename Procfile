@@ -1,1 +1,1 @@
-worker: go build && ./anitrend-bot
+worker: go run main.go
