@@ -23,7 +23,10 @@
 #   non-go = false
 #   go-tests = true
 #   unused-packages = true
-
+[metadata.heroku]
+  root-package = "github.com/youssefhabri/anitrend-bot"
+  go-version = "1.10"
+  install = [ "./..." ]
 
 [[constraint]]
   name = "github.com/bwmarrin/discordgo"
