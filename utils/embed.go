@@ -47,6 +47,8 @@ func (e *Embed) SetDescription(description string) *Embed {
 func (e *Embed) AddField(name, value string) *Embed {
 	if len(value) > 1024 {
 		value = value[:1024]
+	} else if len(value) <= 0 {
+		return e
 	}
 
 	if len(name) > 1024 {

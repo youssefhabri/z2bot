@@ -8,3 +8,4 @@
 
 local discord = require 'discord'
 discord.message("lua", "Hello from lua!")
+discord.message("lion", "Lion was a very dear member of this server. Current status: MIA")

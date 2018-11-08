@@ -1,24 +1,25 @@
 package utils
 
 import (
-	"github.com/bwmarrin/discordgo"
-	"strings"
-	"time"
+	"bytes"
 	"errors"
+	"github.com/bwmarrin/discordgo"
+	"html"
+	"html/template"
 	"log"
 	"os"
-	"bytes"
-	"html/template"
-	"html"
+	"strings"
+	"time"
 )
 
-const PREFIX = "z2!"
+var PREFIX string
 var logger *log.Logger
 var usersOnline map[string]*discordgo.User
 
 func init() {
 	logger = log.New(os.Stderr, "  ", log.Ldate|log.Ltime)
 	usersOnline = make(map[string]*discordgo.User)
+	PREFIX = os.Getenv("PREFIX")
 }
 
 func GetOnlineUsers() map[string]*discordgo.User {
