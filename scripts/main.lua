@@ -7,5 +7,6 @@
 --
 
 local discord = require 'discord'
-discord.message("lua", "Hello from lua!")
-discord.message("lion", "Lion was a very dear member of this server. Current status: MIA")
+discord.message("bestgirl", "It's Clearly me. :02smug: What were expecting?! :bakabaka:")
+discord.message("bestboy", "What's that, I can't here you ...")
+discord.message("lion", "**Lionirdeadman** was a very dear member of this server. Current status: MIA")
