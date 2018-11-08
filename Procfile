@@ -1,1 +1,1 @@
-worker: ./bin/anitrend-bot
+worker: ./bin/z2bot
