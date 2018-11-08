@@ -6,7 +6,7 @@ import (
 	"net/http"
 	"strconv"
 
-	"github.com/youssefhabri/anitrend-bot/utils"
+	"github.com/youssefhabri/z2bot/utils"
 )
 
 type Comic struct {

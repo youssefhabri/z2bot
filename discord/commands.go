@@ -7,7 +7,7 @@ import (
 "time"
 
 "github.com/bwmarrin/discordgo"
-"github.com/youssefhabri/anitrend-bot/utils"
+"github.com/youssefhabri/z2bot/utils"
 	)
 
 func system(sess *discordgo.Session, evt *discordgo.MessageCreate) {

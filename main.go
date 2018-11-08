@@ -1,7 +1,7 @@
 package main
 
 import (
-	"github.com/youssefhabri/anitrend-bot/discord"
+	"github.com/youssefhabri/z2bot/discord"
 )
 
 // Parameters from flag.

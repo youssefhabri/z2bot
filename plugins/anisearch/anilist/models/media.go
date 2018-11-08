@@ -4,7 +4,7 @@ import (
 	"strings"
 	"fmt"
 		"time"
-	"github.com/youssefhabri/anitrend-bot/utils"
+	"github.com/youssefhabri/z2bot/utils"
 )
 
 //id

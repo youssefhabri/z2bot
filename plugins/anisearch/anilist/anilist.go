@@ -2,7 +2,7 @@ package anilist
 
 import (
 	"github.com/animenotifier/anilist"
-	"github.com/youssefhabri/anitrend-bot/plugins/anisearch/anilist/models"
+	"github.com/youssefhabri/z2bot/plugins/anisearch/anilist/models"
 )
 
 const (
