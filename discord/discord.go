@@ -47,32 +47,32 @@ func GetChannel() string {
 func setupHandlers(session *discordgo.Session) {
 	utils.LogInfo("Setting up event handlers...")
 
-	// session.AddHandler(system)
+	session.AddHandler(system)
 	session.AddHandler(testEmbedMsg)
 
 	plugins.Register(session)
 
-	// session.AddHandler(func(sess *discordgo.Session, evt *discordgo.PresenceUpdate) {
-	// 	utils.LogDebug("PRESENSE UPDATE fired for user-ID:", evt.User.ID)
-	// 	self := utils.FetchUser(sess, "@me")
-	// 	u := utils.FetchUser(sess, evt.User.ID)
-	// 	// Ignore self
-	// 	if u.ID == self.ID || u.Bot {
-	// 		return
-	// 	}
-	// 	// Handle online/offline notifications
-	// 	if evt.Status == "offline" {
-	// 		if _, ok := utils.GetOnlineUser(u.ID); ok {
-	// 			utils.DeleteOnlineUser(u.ID)
-	// 			utils.SendMessage(sess, fmt.Sprintf(`**%s** went offline`, u.Username))
-	// 		}
-	// 	} else {
-	// 		if _, ok := utils.GetOnlineUser(u.ID); !ok {
-	// 			utils.SetOnlineUser(u.ID, u)
-	// 			utils.SendMessage(sess, fmt.Sprintf(`**%s** is now online`, u.Username))
-	// 		}
-	// 	}
-	// })
+	session.AddHandler(func(sess *discordgo.Session, evt *discordgo.PresenceUpdate) {
+		utils.LogDebug("PRESENSE UPDATE fired for user-ID:", evt.User.ID)
+		self := utils.FetchUser(sess, "@me")
+		u := utils.FetchUser(sess, evt.User.ID)
+		// Ignore self
+		if u.ID == self.ID || u.Bot {
+			return
+		}
+		// Handle online/offline notifications
+		if evt.Status == "offline" {
+			if _, ok := utils.GetOnlineUser(u.ID); ok {
+				utils.DeleteOnlineUser(u.ID)
+				// utils.SendMessage(sess, fmt.Sprintf(`**%s** went offline`, u.Username))
+			}
+		} else {
+			if _, ok := utils.GetOnlineUser(u.ID); !ok {
+				utils.SetOnlineUser(u.ID, u)
+				// utils.SendMessage(sess, fmt.Sprintf(`**%s** is now online`, u.Username))
+			}
+		}
+	})
 
 	session.AddHandler(func(sess *discordgo.Session, evt *discordgo.GuildCreate) {
 		utils.LogInfo("GUILD_CREATE event fired")

@@ -12,7 +12,7 @@ import (
 	"html"
 )
 
-const PREFIX = "!"
+const PREFIX = "a2!"
 var logger *log.Logger
 var usersOnline map[string]*discordgo.User
 

@@ -10,7 +10,7 @@ import (
 func Register(session *discordgo.Session) {
 
 	// Register plugins
-	admin.Register(session)
+	// admin.Register(session)
 	anisearch.Register(session)
 	xkcd.Register(session)
 }
