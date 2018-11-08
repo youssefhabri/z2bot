@@ -13,7 +13,7 @@ func Register(session *discordgo.Session) {
 
 func fetchComics(session *discordgo.Session, evt *discordgo.MessageCreate) {
 	params := strings.Split(evt.Message.Content, " ")
-	channelID := utils.FetchPrimaryTextChannelID(session)
+	channelID := evt.ChannelID
 
 	xkcd := NewClient()
 	var comic Comic
@@ -25,26 +25,26 @@ func fetchComics(session *discordgo.Session, evt *discordgo.MessageCreate) {
 			switch params[1] {
 			case "latest":
 				comic = xkcd.LatestComic()
-				showComic(session, &comic)
+				showComic(session, channelID, &comic)
 				break
 			case "random":
 				comic = xkcd.RandomComic()
-				showComic(session, &comic)
+				showComic(session, channelID, &comic)
 				break
 			default:
 				comic = xkcd.Comic(params[1])
-				showComic(session, &comic)
+				showComic(session, channelID, &comic)
 				break
 			}
 		} else {
 			comic = xkcd.RandomComic()
-			showComic(session, &comic)
+			showComic(session, channelID, &comic)
 		}
 		break
 	}
 }
 
-func showComic(session *discordgo.Session, comic *Comic) {
+func showComic(session *discordgo.Session, channelID string, comic *Comic) {
 	messageEmbed := utils.NewEmbed().
 		SetColor(3447003).
 		SetTitle(comic.GetTitle()).
@@ -54,5 +54,5 @@ func showComic(session *discordgo.Session, comic *Comic) {
 		SetFooter("Powered by xkcd").
 		MessageEmbed
 
-	utils.SendMessageEmbed(session, messageEmbed)
+	utils.SendMessageEmbed(session, channelID, messageEmbed)
 }

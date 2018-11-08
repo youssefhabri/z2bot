@@ -2,7 +2,8 @@ package discord
 
 import (
 "fmt"
-"os"
+	"github.com/youssefhabri/z2bot/utils/colors"
+	"os"
 "strings"
 "time"
 
@@ -10,7 +11,7 @@ import (
 "github.com/youssefhabri/z2bot/utils"
 	)
 
-func system(sess *discordgo.Session, evt *discordgo.MessageCreate) {
+func system(session *discordgo.Session, evt *discordgo.MessageCreate) {
 	params := strings.Split(evt.Message.Content, " ")
 
 	switch strings.ToLower(strings.TrimSpace(params[0])) {
@@ -18,7 +19,7 @@ func system(sess *discordgo.Session, evt *discordgo.MessageCreate) {
 		hostname, err := os.Hostname()
 		utils.PanicOnErr(err)
 		duration := time.Now().Sub(startTime)
-		utils.SendMessage(sess, fmt.Sprintf(
+		utils.SendMessage(session, evt.ChannelID, fmt.Sprintf(
 			"Uptime is: **%02d:%02d:%02d** (since **%s**) on **%s**",
 			int(duration.Hours()),
 			int(duration.Minutes())%60,
@@ -26,12 +27,35 @@ func system(sess *discordgo.Session, evt *discordgo.MessageCreate) {
 			startTime.Format(time.Stamp),
 			hostname))
 		break
+	case utils.PREFIX + "help":
+		animeCommands := []string{
+			fmt.Sprintf("**%sanime**     **<anime>**        Search for an anime.", utils.PREFIX),
+			fmt.Sprintf("**%smanga**     **<manga>**        Search for a manga.", utils.PREFIX),
+			fmt.Sprintf("**%scharacter** **<character>**    Search for an anime character.", utils.PREFIX),
+			fmt.Sprintf("**%suser**      **<user>**         Search for an anilist user.", utils.PREFIX),
+		}
+		xkcdCommands := []string{
+			fmt.Sprintf("**%sxkcd** **[random]**     Search for a random xkcd comic.", utils.PREFIX),
+			fmt.Sprintf("**%sxkcd** **<number>**     Search for a specific xkcd comic.", utils.PREFIX),
+			fmt.Sprintf("**%sxkcd** **latest**       Search for a the latest xkcd comic.", utils.PREFIX),
+		}
+		messageEmbed := utils.NewEmbed().
+			SetColor(colors.DEFAULT).
+			SetTitle("Zero Two's Commands").
+			SetDescription("The list of usable commands for the best waifu, Zero Two").
+			SetFooter("Powered by the best waifu, Zero Two").
+			AddField("AniList commands", strings.Join(animeCommands, "\n")).
+			AddField("xkcd commands", strings.Join(xkcdCommands, "\n")).
+			MessageEmbed
+
+		utils.SendMessageEmbed(session, evt.ChannelID, messageEmbed)
+		break
 	}
 }
 
 func testEmbedMsg(sess *discordgo.Session, evt *discordgo.MessageCreate) {
 	params := strings.Split(evt.Message.Content, " ")
-	channelID := utils.FetchPrimaryTextChannelID(sess)
+	channelID := evt.ChannelID
 
 	switch strings.ToLower(strings.TrimSpace(params[0])) {
 	case utils.PREFIX + "w":

@@ -40,7 +40,7 @@ func GetSession() *discordgo.Session {
 	return session
 }
 
-func GetChannel() string {
+func GetPrimaryChannel() string {
 	return utils.FetchPrimaryTextChannelID(session)
 }
 
@@ -126,7 +126,7 @@ func LMessage(L *lua.LState) int {
 
 		switch strings.ToLower(strings.TrimSpace(params[0])) {
 		case utils.PREFIX + command:
-			utils.SendMessage(session, message)
+			utils.SendMessage(session, evt.ChannelID, message)
 			break
 		}
 	})

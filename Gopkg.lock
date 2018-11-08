@@ -3,90 +3,116 @@
 
 [[projects]]
   branch = "master"
+  digest = "1:fd20c8e10da0fa94e3b461337e67681fc4398568a487b439ddfd3211d89d5dbb"
   name = "github.com/aerogo/http"
   packages = ["client"]
+  pruneopts = "UT"
   revision = "77b7bd349027197a9ec57ef840d28cc216549239"
 
 [[projects]]
   branch = "master"
+  digest = "1:798a41f469e4df282ec47d892002f0f32d9274fa46983bad3b9e196af62e8cbb"
   name = "github.com/animenotifier/anilist"
   packages = ["."]
+  pruneopts = "UT"
   revision = "621a3311a4b8446e36fb31253733b35cf594342f"
 
 [[projects]]
+  digest = "1:4fd5ce7844c22e194005b9e12fee8adc70fb5ba0bbba9e1964d2e3d1f301d789"
   name = "github.com/bwmarrin/discordgo"
   packages = ["."]
+  pruneopts = "UT"
   revision = "4a33b9bc7c56cfdb9bb244e33e83cb3941fe2bdc"
   version = "v0.18.0"
 
 [[projects]]
+  digest = "1:43dd08a10854b2056e615d1b1d22ac94559d822e1f8b6fcc92c1a1057e85188e"
   name = "github.com/gorilla/websocket"
   packages = ["."]
+  pruneopts = "UT"
   revision = "ea4d1f681babbce9545c9c5f3d5194a789c89f5b"
   version = "v1.2.0"
 
 [[projects]]
+  digest = "1:3342918f0af59ba624457415b6f5773b39be7955e7002ac8947102c88590ff9c"
   name = "github.com/klauspost/compress"
   packages = [
     "flate",
     "gzip",
-    "zlib"
+    "zlib",
   ]
+  pruneopts = "UT"
   revision = "6c8db69c4b49dd4df1fff66996cf556176d0b9bf"
   version = "v1.2.1"
 
 [[projects]]
+  digest = "1:4ea0668d490ca32a38366453a486e2e8c60fbdaf1f2607c96b4a093d8a5c8de7"
   name = "github.com/klauspost/cpuid"
   packages = ["."]
+  pruneopts = "UT"
   revision = "ae7887de9fa5d2db4eaa8174a7eff2c1ac00f2da"
   version = "v1.1"
 
 [[projects]]
+  digest = "1:1e5bf9cae557702ebbd51a32a94b47e3d1a20b7637682be08da8cf62152ec781"
   name = "github.com/klauspost/crc32"
   packages = ["."]
+  pruneopts = "UT"
   revision = "cb6bfca970f6908083f26f39a79009d608efd5cd"
   version = "v1.1"
 
 [[projects]]
   branch = "master"
+  digest = "1:c468422f334a6b46a19448ad59aaffdfc0a36b08fdcc1c749a0b29b6453d7e59"
   name = "github.com/valyala/bytebufferpool"
   packages = ["."]
+  pruneopts = "UT"
   revision = "e746df99fe4a3986f4d4f79e13c1e0117ce9c2f7"
 
 [[projects]]
+  digest = "1:15ad8a80098fcc7a194b9db6b26d74072a852e4faa957848c8118193d3c69230"
   name = "github.com/valyala/fasthttp"
   packages = [
     ".",
     "fasthttputil",
-    "stackless"
+    "stackless",
   ]
+  pruneopts = "UT"
   revision = "e5f51c11919d4f66400334047b897ef0a94c6f3c"
   version = "v20180529"
 
 [[projects]]
   branch = "master"
+  digest = "1:428e5e436b2e8e8a057449367d4ef434b839e89fea26538a96f221f68f480b67"
   name = "github.com/yuin/gopher-lua"
   packages = [
     ".",
     "ast",
     "parse",
-    "pm"
+    "pm",
   ]
+  pruneopts = "UT"
   revision = "ca850f594eaafa5468da2bd53b865e4ee55be18b"
 
 [[projects]]
   branch = "master"
+  digest = "1:3d29b4f465007200105ef5f5bbfaf6c2950ce037ef285560de380a360bbf8aa4"
   name = "golang.org/x/crypto"
   packages = [
     "nacl/secretbox",
     "poly1305",
-    "salsa20/salsa"
+    "salsa20/salsa",
   ]
+  pruneopts = "UT"
   revision = "df8d4716b3472e4a531c33cedbe537dae921a1a9"
 
 [solve-meta]
   analyzer-name = "dep"
   analyzer-version = 1
-  inputs-digest = "f97b7fcce271ff0e6210c93066612398bb36393a1a15fd427d513b8703045e06"
+  input-imports = [
+    "github.com/animenotifier/anilist",
+    "github.com/bwmarrin/discordgo",
+    "github.com/yuin/gopher-lua",
+  ]
   solver-name = "gps-cdcl"
   solver-version = 1

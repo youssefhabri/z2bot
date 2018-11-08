@@ -12,7 +12,7 @@ import (
 	"html"
 )
 
-const PREFIX = "a2!"
+const PREFIX = "z2!"
 var logger *log.Logger
 var usersOnline map[string]*discordgo.User
 
@@ -82,7 +82,8 @@ func RetryOnBadGateway(f func() error) {
 				continue
 			} else {
 				// Otherwise panic !
-				PanicOnErr(err)
+				// PanicOnErr(err)
+				LogError(err)
 			}
 		} else {
 			// In case of no error, return.
@@ -147,8 +148,7 @@ func FetchPrimaryTextChannelID(sess *discordgo.Session) string {
 	return channelid
 }
 
-func SendMessage(session *discordgo.Session, message string) {
-	channelID := FetchPrimaryTextChannelID(session)
+func SendMessage(session *discordgo.Session, channelID string, message string) {
 	session.ChannelTyping(channelID)
 	LogInfo("SENDING MESSAGE:", message)
 	RetryOnBadGateway(func() error {
@@ -157,8 +157,7 @@ func SendMessage(session *discordgo.Session, message string) {
 	})
 }
 
-func SendMessageEmbed(session *discordgo.Session, messageEmbed *discordgo.MessageEmbed) {
-	channelID := FetchPrimaryTextChannelID(session)
+func SendMessageEmbed(session *discordgo.Session, channelID string, messageEmbed *discordgo.MessageEmbed) {
 	// LogInfo("SENDING MESSAGE:", messageEmbed)
 	RetryOnBadGateway(func() error {
 		_, err := session.ChannelMessageSendEmbed(channelID, messageEmbed)

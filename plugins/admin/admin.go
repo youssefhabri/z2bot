@@ -16,7 +16,7 @@ func Register(session *discordgo.Session) {
 
 func system(sess *discordgo.Session, evt *discordgo.MessageCreate) {
 	params := strings.Split(evt.Message.Content, " ")
-	channelID := utils.FetchPrimaryTextChannelID(sess)
+	channelID := evt.ChannelID
 
 	switch strings.ToLower(strings.TrimSpace(params[0])) {
 	case utils.PREFIX + "cleanup":

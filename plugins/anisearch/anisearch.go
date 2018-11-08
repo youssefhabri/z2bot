@@ -15,45 +15,45 @@ func Register(session *discordgo.Session) {
 
 func anisearch(session *discordgo.Session, evt *discordgo.MessageCreate) {
 	params := strings.Split(evt.Message.Content, " ")
-	channelID := utils.FetchPrimaryTextChannelID(session)
+	channelID := evt.ChannelID
 
 	switch strings.ToLower(strings.TrimSpace(params[0])) {
 	case utils.PREFIX + "anime":
 		session.ChannelTyping(channelID)
 		if len(params) > 1 {
-			searchAnime(session, params[1:])
+			searchAnime(session, channelID, params[1:])
 		} else {
-			utils.SendMessage(session, "`usage: "+utils.PREFIX+"anime <anime_name>`")
+			utils.SendMessage(session,  channelID,"`usage: "+utils.PREFIX+"anime <anime_name>`")
 		}
 		break
 	case utils.PREFIX + "manga":
 		session.ChannelTyping(channelID)
 		if len(params) > 1 {
-			searchManga(session, params[1:])
+			searchManga(session, channelID, params[1:])
 		} else {
-			utils.SendMessage(session, "`usage: "+utils.PREFIX+"manga <manga_name>`")
+			utils.SendMessage(session, channelID, "`usage: "+utils.PREFIX+"manga <manga_name>`")
 		}
 		break
 	case utils.PREFIX + "user":
 		session.ChannelTyping(channelID)
 		if len(params) > 1 {
-			searchUser(session, params[1:])
+			searchUser(session, channelID, params[1:])
 		} else {
-			utils.SendMessage(session, "`usage: "+utils.PREFIX+"user <username>`")
+			utils.SendMessage(session, channelID, "`usage: "+utils.PREFIX+"user <username>`")
 		}
 		break
 	case utils.PREFIX + "character":
 		session.ChannelTyping(channelID)
 		if len(params) > 1 {
-			searchCharacter(session, params[1:])
+			searchCharacter(session, channelID, params[1:])
 		} else {
-			utils.SendMessage(session, "`usage: "+utils.PREFIX+"character <character_name>`")
+			utils.SendMessage(session, channelID, "`usage: "+utils.PREFIX+"character <character_name>`")
 		}
 		break
 	}
 }
 
-func searchAnime(session *discordgo.Session, query []string) {
+func searchAnime(session *discordgo.Session, channelID string, query []string) {
 	var keyword = strings.Join(query, " ")
 	anime, _ := anilist.SearchMedia(keyword, anilist.ANIME_T)
 	if anime.ID != 0 {
@@ -71,13 +71,13 @@ func searchAnime(session *discordgo.Session, query []string) {
 			AddField("More info", anime.TrackingSites()).
 			InlineAllFields().MessageEmbed
 
-		utils.SendMessageEmbed(session, messageEmbed)
+		utils.SendMessageEmbed(session, channelID, messageEmbed)
 	} else {
-		utils.SendMessage(session, "No anime was found or there was an error in the process")
+		utils.SendMessage(session, channelID, "No anime was found or there was an error in the process")
 	}
 }
 
-func searchManga(sess *discordgo.Session, query []string) {
+func searchManga(sess *discordgo.Session, channelID string, query []string) {
 	var keyword = strings.Join(query, " ")
 	manga, _ := anilist.SearchMedia(keyword, anilist.MANGA_T)
 	if manga.ID != 0 {
@@ -93,13 +93,13 @@ func searchManga(sess *discordgo.Session, query []string) {
 			AddField("More info", manga.TrackingSites()).
 			InlineAllFields().MessageEmbed
 
-		utils.SendMessageEmbed(sess, messageEmbed)
+		utils.SendMessageEmbed(sess, channelID, messageEmbed)
 	} else {
-		utils.SendMessage(sess, "No manga was found or there was an error in the process")
+		utils.SendMessage(sess, channelID, "No manga was found or there was an error in the process")
 	}
 }
 
-func searchUser(sess *discordgo.Session, query []string) {
+func searchUser(sess *discordgo.Session, channelID string, query []string) {
 	var username = strings.Join(query, " ")
 	username = strings.TrimSpace(username)
 
@@ -119,19 +119,18 @@ func searchUser(sess *discordgo.Session, query []string) {
 			AddField("Favorite Characters", user.GetFavoriteCharacters()).
 			InlineAllFields().MessageEmbed
 
-		utils.SendMessageEmbed(sess, messageEmbed)
+		utils.SendMessageEmbed(sess, channelID, messageEmbed)
 	} else {
-		utils.SendMessage(sess, "No user was found or there was an error in the process")
+		utils.SendMessage(sess, channelID, "No user was found or there was an error in the process")
 	}
 }
 
-func searchCharacter(session *discordgo.Session, query []string) {
+func searchCharacter(session *discordgo.Session, channelID string, query []string) {
 	var characterName = strings.Join(query, " ")
 	characterName = strings.TrimSpace(characterName)
 
 	character, _ := anilist.SearchCharacter(characterName)
 	if character.ID != 0 {
-		channelId := utils.FetchPrimaryTextChannelID(session)
 		messageEmbed := utils.NewEmbed().
 			SetColor(3447003).
 			SetTitle(character.Name.First + " " + character.Name.Last).
@@ -143,8 +142,8 @@ func searchCharacter(session *discordgo.Session, query []string) {
 			AddField("Manga", character.GetMediaList(anilist.MANGA_T)).
 			InlineAllFields().MessageEmbed
 
-		session.ChannelMessageSendEmbed(channelId, messageEmbed)
+		session.ChannelMessageSendEmbed(channelID, messageEmbed)
 	} else {
-		utils.SendMessage(session, "No character was found or there was an error in the process")
+		utils.SendMessage(session, channelID, "No character was found or there was an error in the process")
 	}
 }
