@@ -62,6 +62,14 @@
   version = "v1.1"
 
 [[projects]]
+  digest = "1:bb0d999fbfbc40f7bf42a24eca5e6894fa24a9efdad13d6908bea34bc3309722"
+  name = "github.com/subosito/gotenv"
+  packages = ["."]
+  pruneopts = "UT"
+  revision = "69b5b6104433beb2cb9c3ce00bdadf3c7c2d3f34"
+  version = "v1.1.1"
+
+[[projects]]
   branch = "master"
   digest = "1:c468422f334a6b46a19448ad59aaffdfc0a36b08fdcc1c749a0b29b6453d7e59"
   name = "github.com/valyala/bytebufferpool"
@@ -112,6 +120,7 @@
   input-imports = [
     "github.com/animenotifier/anilist",
     "github.com/bwmarrin/discordgo",
+    "github.com/subosito/gotenv",
     "github.com/yuin/gopher-lua",
   ]
   solver-name = "gps-cdcl"

@@ -1,6 +1,7 @@
 package discord
 
 import (
+	"os"
 	//"fmt"
 	"strings"
 	"time"
@@ -15,15 +16,13 @@ var startTime time.Time
 var session *discordgo.Session
 var discordErr error
 
-var accountToken = "NDUzNzczMDAxODA1MTM1ODgz.DfjwlA.CiarL8FdMZS-27VlOrWdrgqCOl8"
-
 func Init() {
 	startTime = time.Now()
 
 	utils.LogInfo("Logging in...")
 
 	utils.LogInfo("Logging in with bot account token...")
-	session, discordErr = discordgo.New("Bot " + accountToken)
+	session, discordErr = discordgo.New("Bot " + os.Getenv("BOT_TOKEN"))
 	setupHandlers(session)
 	setupScripting(session)
 	utils.PanicOnErr(discordErr)

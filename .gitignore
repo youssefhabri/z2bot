@@ -1,5 +1,7 @@
 .vscode
 .idea/
 
+.env
+
 vendor/
 z2bot
