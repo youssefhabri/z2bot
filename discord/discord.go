@@ -1,15 +1,14 @@
 package discord
 
 import (
+	"fmt"
+	"github.com/youssefhabri/z2bot/scripting"
 	"os"
-	//"fmt"
-	"strings"
 	"time"
 
 	"github.com/bwmarrin/discordgo"
 	"github.com/youssefhabri/z2bot/plugins"
 	"github.com/youssefhabri/z2bot/utils"
-	"github.com/yuin/gopher-lua"
 )
 
 var startTime time.Time
@@ -20,16 +19,17 @@ func Init() {
 	startTime = time.Now()
 
 	utils.LogInfo("Logging in...")
-
 	utils.LogInfo("Logging in with bot account token...")
 	session, discordErr = discordgo.New("Bot " + os.Getenv("BOT_TOKEN"))
+
 	setupHandlers(session)
-	setupScripting(session)
-	utils.PanicOnErr(discordErr)
+
+	scripting.Init(session)
+	utils.LogError(discordErr)
 
 	utils.LogInfo("Opening session...")
 	discordErr = session.Open()
-	utils.PanicOnErr(discordErr)
+	utils.LogError(discordErr)
 
 	utils.LogInfo("Sleeping...")
 	// <-make(chan struct{})
@@ -52,7 +52,9 @@ func setupHandlers(session *discordgo.Session) {
 	plugins.Register(session)
 
 	session.AddHandler(func(sess *discordgo.Session, evt *discordgo.PresenceUpdate) {
-		utils.LogDebug("PRESENSE UPDATE fired for user-ID:", evt.User.ID)
+		utils.LogDebug(fmt.Sprintf("PRESENSE UPDATE fired for user-ID: %s & username: %s", evt.User.ID, evt.User.Username))
+		fmt.Printf("%+v\n", evt)
+		fmt.Printf("%#v\n", evt.User)
 		self := utils.FetchUser(sess, "@me")
 		u := utils.FetchUser(sess, evt.User.ID)
 		// Ignore self
@@ -73,61 +75,21 @@ func setupHandlers(session *discordgo.Session) {
 		}
 	})
 
-	session.AddHandler(func(sess *discordgo.Session, evt *discordgo.GuildCreate) {
+	session.AddHandler(func(session *discordgo.Session, evt *discordgo.GuildCreate) {
 		utils.LogInfo("GUILD_CREATE event fired")
 		for _, presence := range evt.Presences {
 			user := presence.User
-			utils.LogInfo("Marked user-ID online:", user.ID)
+			utils.LogInfo(fmt.Sprintf("Marked User online - ID: %s, Username: %s", user.ID, user.Username))
 			utils.SetOnlineUser(user.ID, user)
 		}
 	})
 
-	session.AddHandler(func(sess *discordgo.Session, evt *discordgo.MessageReactionAdd) {
-		utils.LogInfo("REACTION_CREATE event fired: " + evt.Emoji.ID + " " + evt.Emoji.Name)
-		if evt.MessageReaction.Emoji.ID == "❌" {
-			sess.MessageReactionsRemoveAll(evt.ChannelID, evt.MessageID)
+	session.AddHandler(func(session *discordgo.Session, evt *discordgo.MessageReactionAdd) {
+		if evt.MessageReaction.Emoji.Name == "❌" {
+			utils.LogInfo("REACTION_CREATE event fired: " + evt.Emoji.Name)
+			session.MessageReactionRemove(evt.ChannelID, evt.MessageID, "⬅", evt.UserID)
+			session.MessageReactionRemove(evt.ChannelID, evt.MessageID, "❌", evt.UserID)
+			session.MessageReactionRemove(evt.ChannelID, evt.MessageID, "➡", evt.UserID)
 		}
 	})
-}
-
-func setupScripting(session *discordgo.Session) {
-	L := lua.NewState()
-	defer L.Close()
-	L.PreloadModule("discord", Loader)
-	if err := L.DoFile("scripts/main.lua"); err != nil {
-		panic(err)
-	}
-}
-
-func Loader(L *lua.LState) int {
-	// register functions to the table
-	mod := L.SetFuncs(L.NewTable(), exports)
-	// register other stuff
-	L.SetField(mod, "name", lua.LString("value"))
-
-	// returns the module
-	L.Push(mod)
-	return 1
-}
-
-var exports = map[string]lua.LGFunction{
-	"message": LMessage,
-}
-
-func LMessage(L *lua.LState) int {
-	command := L.Get(1).String()
-	message := L.Get(2).String()
-
-	utils.LogDebug(command, message)
-
-	session.AddHandler(func(session *discordgo.Session, evt *discordgo.MessageCreate) {
-		params := strings.Split(evt.Message.Content, " ")
-
-		switch strings.ToLower(strings.TrimSpace(params[0])) {
-		case utils.PREFIX + command:
-			utils.SendMessage(session, evt.ChannelID, message)
-			break
-		}
-	})
-	return 0
 }

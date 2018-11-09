@@ -7,6 +7,7 @@ import (
 	"html"
 	"html/template"
 	"log"
+	"math/rand"
 	"os"
 	"strings"
 	"time"
@@ -46,6 +47,11 @@ func SetOnlineUser(userId string, user *discordgo.User) {
 
 func DeleteOnlineUser(userId string) {
 	delete(usersOnline, userId)
+}
+
+func Random(min, max int) int {
+	rand.Seed(time.Now().Unix())
+	return rand.Intn(max - min) + min
 }
 
 func LogError(v ...interface{}) {
@@ -120,7 +126,7 @@ func FetchUserByName(sess *discordgo.Session, username string) *discordgo.User {
 }
 
 func FetchPrimaryTextChannelID(sess *discordgo.Session) string {
-	var channelid string
+	var channelID string
 	RetryOnBadGateway(func() error {
 		guilds, err := sess.UserGuilds(1, "", "")
 		if err != nil {
@@ -140,13 +146,13 @@ func FetchPrimaryTextChannelID(sess *discordgo.Session) string {
 				return err
 			}
 			if channel.Type == discordgo.ChannelTypeGuildText {
-				channelid = channel.ID
+				channelID = channel.ID
 				return nil
 			}
 		}
 		return errors.New("No primary channel found")
 	})
-	return channelid
+	return channelID
 }
 
 func SendMessage(session *discordgo.Session, channelID string, message string) {

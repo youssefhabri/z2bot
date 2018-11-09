@@ -17,7 +17,7 @@ func system(session *discordgo.Session, evt *discordgo.MessageCreate) {
 	switch strings.ToLower(strings.TrimSpace(params[0])) {
 	case utils.PREFIX + "uptime":
 		hostname, err := os.Hostname()
-		utils.PanicOnErr(err)
+		utils.LogError(err)
 		duration := time.Now().Sub(startTime)
 		utils.SendMessage(session, evt.ChannelID, fmt.Sprintf(
 			"Uptime is: **%02d:%02d:%02d** (since **%s**) on **%s**",
