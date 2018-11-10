@@ -10,6 +10,7 @@ local discord = require 'discord'
 discord.message("bestgirl", "It's Clearly me. <:02smug:490438406174801921> What were you expecting?! <:bakabaka:490438407747534858>")
 discord.message("bestboy", "What's that, I can't hear you ...")
 
+discord.message("moka", "A mysterious guy who loves Owls. Not sure why <:thinking:510517391302590476>.")
 discord.message("lion", "**Lionirdeadman** was a very dear member of this server. Current status: MIA")
 discord.message("rem", "https://www.youtube.com/watch?v=QdZT8xswjJA")
 
