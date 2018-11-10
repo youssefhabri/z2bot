@@ -1,31 +1,27 @@
 package discord
 
 import (
-"fmt"
+	"fmt"
 	"github.com/youssefhabri/z2bot/utils/colors"
-	"os"
-"strings"
-"time"
+	"strings"
+	"time"
 
-"github.com/bwmarrin/discordgo"
-"github.com/youssefhabri/z2bot/utils"
-	)
+	"github.com/bwmarrin/discordgo"
+	"github.com/youssefhabri/z2bot/utils"
+)
 
 func system(session *discordgo.Session, evt *discordgo.MessageCreate) {
 	params := strings.Split(evt.Message.Content, " ")
 
 	switch strings.ToLower(strings.TrimSpace(params[0])) {
 	case utils.PREFIX + "uptime":
-		hostname, err := os.Hostname()
-		utils.LogError(err)
 		duration := time.Now().Sub(startTime)
 		utils.SendMessage(session, evt.ChannelID, fmt.Sprintf(
-			"Uptime is: **%02d:%02d:%02d** (since **%s**) on **%s**",
+			"Uptime is: **%02d:%02d:%02d** (since **%s**)",
 			int(duration.Hours()),
 			int(duration.Minutes())%60,
 			int(duration.Seconds())%60,
-			startTime.Format(time.Stamp),
-			hostname))
+			startTime.Format(time.Stamp)))
 		break
 	case utils.PREFIX + "help":
 		animeCommands := []string{
