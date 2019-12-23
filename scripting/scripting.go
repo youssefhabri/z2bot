@@ -4,7 +4,7 @@ import (
 	"strings"
 
 	"github.com/bwmarrin/discordgo"
-	"github.com/youssefhabri/z2bot-go/utils"
+	"github.com/youssefhabri/zero2-go/utils"
 )
 
 var session *discordgo.Session

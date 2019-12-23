@@ -3,7 +3,7 @@ package models
 import (
 	"strings"
 
-	"github.com/youssefhabri/z2bot-go/utils"
+	"github.com/youssefhabri/zero2-go/utils"
 )
 
 type Character struct {

@@ -5,8 +5,8 @@ import (
 	"strings"
 
 	"github.com/bwmarrin/discordgo"
-	"github.com/youssefhabri/z2bot-go/plugins/anisearch/anilist"
-	"github.com/youssefhabri/z2bot-go/utils"
+	"github.com/youssefhabri/zero2-go/plugins/anisearch/anilist"
+	"github.com/youssefhabri/zero2-go/utils"
 )
 
 func Register(session *discordgo.Session) {

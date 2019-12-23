@@ -6,9 +6,9 @@ import (
 	"time"
 
 	"github.com/bwmarrin/discordgo"
-	"github.com/youssefhabri/z2bot-go/plugins"
-	"github.com/youssefhabri/z2bot-go/scripting"
-	"github.com/youssefhabri/z2bot-go/utils"
+	"github.com/youssefhabri/zero2-go/plugins"
+	"github.com/youssefhabri/zero2-go/scripting"
+	"github.com/youssefhabri/zero2-go/utils"
 )
 
 var startTime time.Time

@@ -6,7 +6,7 @@ import (
 	"net/http"
 	"strconv"
 
-	"github.com/youssefhabri/z2bot-go/utils"
+	"github.com/youssefhabri/zero2-go/utils"
 )
 
 type Comic struct {

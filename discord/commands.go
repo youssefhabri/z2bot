@@ -6,8 +6,8 @@ import (
 	"time"
 
 	"github.com/bwmarrin/discordgo"
-	"github.com/youssefhabri/z2bot-go/utils"
-	"github.com/youssefhabri/z2bot-go/utils/colors"
+	"github.com/youssefhabri/zero2-go/utils"
+	"github.com/youssefhabri/zero2-go/utils/colors"
 )
 
 func system(session *discordgo.Session, evt *discordgo.MessageCreate) {
