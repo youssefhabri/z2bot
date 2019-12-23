@@ -1,16 +1,17 @@
 package models
 
 import (
-		"fmt"
-	"github.com/youssefhabri/z2bot/utils"
+	"fmt"
 	"strings"
+
+	"github.com/youssefhabri/z2bot-go/utils"
 )
 
 type User struct {
 	ID      int    `json:"id"`
 	Name    string `json:"name"`
 	SiteUrl string `json:"siteUrl"`
-	Avatar struct {
+	Avatar  struct {
 		Large string `json:"large"`
 	} `json:"avatar"`
 	About string `json:"about"`
@@ -23,7 +24,7 @@ type User struct {
 			Nodes []struct {
 				ID      int    `json:"id"`
 				SiteUrl string `json:"siteUrl"`
-				Title struct {
+				Title   struct {
 					Romaji        string `json:"romaji"`
 					English       string `json:"english"`
 					Native        string `json:"native"`
@@ -35,7 +36,7 @@ type User struct {
 			Nodes []struct {
 				ID      int    `json:"id"`
 				SiteUrl string `json:"siteUrl"`
-				Name struct {
+				Name    struct {
 					First  string `json:"first"`
 					Last   string `json:"last"`
 					Native string `json:"native"`
@@ -46,7 +47,7 @@ type User struct {
 			Nodes []struct {
 				ID      int    `json:"id"`
 				SiteUrl string `json:"siteUrl"`
-				Title struct {
+				Title   struct {
 					Romaji        string `json:"romaji"`
 					English       string `json:"english"`
 					Native        string `json:"native"`
@@ -118,7 +119,7 @@ func (u *User) GetFavoriteCharacters() string {
 	num := len(u.Favourites.Characters.Nodes)
 	for i := 0; i < utils.Min(num, 5); i++ {
 		character := u.Favourites.Characters.Nodes[i]
-		fav = fav + "[" + character.Name.First+ " "+ character.Name.Last +"](" + character.SiteUrl + ")\n"
+		fav = fav + "[" + character.Name.First + " " + character.Name.Last + "](" + character.SiteUrl + ")\n"
 	}
 	if num > 5 {
 		fav = fav + fmt.Sprintf("+ %d more", len(u.Favourites.Characters.Nodes)-5)

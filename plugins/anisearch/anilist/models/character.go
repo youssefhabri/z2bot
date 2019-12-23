@@ -1,15 +1,16 @@
 package models
 
 import (
-	"github.com/youssefhabri/z2bot/utils"
 	"strings"
-	)
+
+	"github.com/youssefhabri/z2bot-go/utils"
+)
 
 type Character struct {
 	ID          int    `json:"id"`
 	SiteUrl     string `json:"siteUrl"`
 	Description string `json:"description"`
-	Name struct {
+	Name        struct {
 		First  string `json:"first"`
 		Last   string `json:"last"`
 		Native string `json:"native"`
@@ -22,7 +23,7 @@ type Character struct {
 			ID      int    `json:"id"`
 			Type    string `json:"type"`
 			SiteUrl string `json:"siteUrl"`
-			Title struct {
+			Title   struct {
 				Romaji        string `json:"romaji"`
 				English       string `json:"english"`
 				Native        string `json:"native"`

@@ -2,7 +2,7 @@ package main
 
 import (
 	"github.com/subosito/gotenv"
-	"github.com/youssefhabri/z2bot/discord"
+	"github.com/youssefhabri/z2bot-go/discord"
 )
 
 // Parameters from flag.

@@ -1,10 +1,10 @@
 package scripting
 
 import (
-	"github.com/bwmarrin/discordgo"
-	"github.com/youssefhabri/z2bot/utils"
-	"github.com/yuin/gopher-lua"
 	"strings"
+
+	"github.com/bwmarrin/discordgo"
+	"github.com/youssefhabri/z2bot-go/utils"
 )
 
 var session *discordgo.Session
@@ -47,7 +47,6 @@ func lMessage(L *lua.LState) int {
 			messages = append(messages, value.String())
 		})
 	}
-
 
 	session.AddHandler(func(session *discordgo.Session, evt *discordgo.MessageCreate) {
 		params := strings.Split(evt.Message.Content, " ")

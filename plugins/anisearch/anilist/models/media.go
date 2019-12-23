@@ -1,10 +1,11 @@
 package models
 
 import (
-	"strings"
 	"fmt"
-		"time"
-	"github.com/youssefhabri/z2bot/utils"
+	"strings"
+	"time"
+
+	"github.com/youssefhabri/z2bot-go/utils"
 )
 
 //id
@@ -29,11 +30,11 @@ type Media struct {
 		AiringAt        int64 `json:"airingAt"`
 		TimeUntilAiring int64 `json:"timeUntilAiring"`
 	} `json:"nextAiringEpisode"`
-	Status    string `json:"status"`
-	MeanScore int    `json:"meanScore"`
-	Episodes  int    `json:"episodes"`
-	Chapters  int    `json:"chapters"`
-	SiteUrl   string `json:"siteUrl"`
+	Status        string `json:"status"`
+	MeanScore     int    `json:"meanScore"`
+	Episodes      int    `json:"episodes"`
+	Chapters      int    `json:"chapters"`
+	SiteUrl       string `json:"siteUrl"`
 	ExternalLinks []struct {
 		Site string `json:"site"`
 		Url  string `json:"url"`

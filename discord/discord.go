@@ -2,13 +2,13 @@ package discord
 
 import (
 	"fmt"
-	"github.com/youssefhabri/z2bot/scripting"
 	"os"
 	"time"
 
 	"github.com/bwmarrin/discordgo"
-	"github.com/youssefhabri/z2bot/plugins"
-	"github.com/youssefhabri/z2bot/utils"
+	"github.com/youssefhabri/z2bot-go/plugins"
+	"github.com/youssefhabri/z2bot-go/scripting"
+	"github.com/youssefhabri/z2bot-go/utils"
 )
 
 var startTime time.Time

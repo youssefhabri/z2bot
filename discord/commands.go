@@ -2,12 +2,12 @@ package discord
 
 import (
 	"fmt"
-	"github.com/youssefhabri/z2bot/utils/colors"
 	"strings"
 	"time"
 
 	"github.com/bwmarrin/discordgo"
-	"github.com/youssefhabri/z2bot/utils"
+	"github.com/youssefhabri/z2bot-go/utils"
+	"github.com/youssefhabri/z2bot-go/utils/colors"
 )
 
 func system(session *discordgo.Session, evt *discordgo.MessageCreate) {
@@ -71,13 +71,13 @@ func testEmbedMsg(sess *discordgo.Session, evt *discordgo.MessageCreate) {
 			Footer:      &messageFooter,
 		}
 
-		controlEmojis := []*discordgo.Emoji {
-			{Name:"prev", ID:"⬅"},
-			{Name:"exit", ID:"❌"},
-			{Name:"next", ID:"➡"},
+		controlEmojis := []*discordgo.Emoji{
+			{Name: "prev", ID: "⬅"},
+			{Name: "exit", ID: "❌"},
+			{Name: "next", ID: "➡"},
 		}
 
-		message, _ :=sess.ChannelMessageSendEmbed(channelID, &messageEmbed)
+		message, _ := sess.ChannelMessageSendEmbed(channelID, &messageEmbed)
 		for _, emoji := range controlEmojis {
 			sess.MessageReactionAdd(channelID, message.ID, emoji.ID)
 		}

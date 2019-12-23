@@ -4,7 +4,7 @@ import (
 	"strings"
 
 	"github.com/bwmarrin/discordgo"
-	"github.com/youssefhabri/z2bot/utils"
+	"github.com/youssefhabri/z2bot-go/utils"
 )
 
 func Register(session *discordgo.Session) {

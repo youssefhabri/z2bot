@@ -5,8 +5,8 @@ import (
 	"strings"
 
 	"github.com/bwmarrin/discordgo"
-	"github.com/youssefhabri/z2bot/plugins/anisearch/anilist"
-	"github.com/youssefhabri/z2bot/utils"
+	"github.com/youssefhabri/z2bot-go/plugins/anisearch/anilist"
+	"github.com/youssefhabri/z2bot-go/utils"
 )
 
 func Register(session *discordgo.Session) {
@@ -23,7 +23,7 @@ func anisearch(session *discordgo.Session, evt *discordgo.MessageCreate) {
 		if len(params) > 1 {
 			searchAnime(session, channelID, params[1:])
 		} else {
-			utils.SendMessage(session,  channelID,"`usage: "+utils.PREFIX+"anime <anime_name>`")
+			utils.SendMessage(session, channelID, "`usage: "+utils.PREFIX+"anime <anime_name>`")
 		}
 		break
 	case utils.PREFIX + "manga":
@@ -64,7 +64,7 @@ func searchAnime(session *discordgo.Session, channelID string, query []string) {
 			SetDescription(anime.Synopses(350)).
 			SetImage(anime.BannerImage).
 			SetThumbnail(anime.CoverImage.Medium).
-			SetFooter("Status: " + anime.Status + ", Next episode: " + anime.NextEpisode() + " | Powered by AniList").
+			SetFooter("Status: "+anime.Status+", Next episode: "+anime.NextEpisode()+" | Powered by AniList").
 			AddField("Score", fmt.Sprintf("%d", anime.MeanScore)).
 			AddField("Episodes", fmt.Sprintf("%d", anime.Episodes)).
 			AddField("Streaming Services", anime.StreamingServices()).
@@ -87,7 +87,7 @@ func searchManga(sess *discordgo.Session, channelID string, query []string) {
 			SetURL(manga.SiteUrl).
 			SetDescription(manga.Synopses(350)).
 			SetThumbnail(manga.CoverImage.Medium).
-			SetFooter("Status: " + manga.Status + " | Powered by AniList").
+			SetFooter("Status: "+manga.Status+" | Powered by AniList").
 			AddField("Score", fmt.Sprintf("%d", manga.MeanScore)).
 			AddField("Chapters", fmt.Sprintf("%d", manga.Chapters)).
 			AddField("More info", manga.TrackingSites()).
@@ -133,7 +133,7 @@ func searchCharacter(session *discordgo.Session, channelID string, query []strin
 	if character.ID != 0 {
 		messageEmbed := utils.NewEmbed().
 			SetColor(3447003).
-			SetTitle(character.Name.First + " " + character.Name.Last).
+			SetTitle(character.Name.First+" "+character.Name.Last).
 			SetURL(character.SiteUrl).
 			SetDescription(character.About(350)).
 			SetThumbnail(character.Image.Large).

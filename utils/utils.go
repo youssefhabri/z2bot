@@ -3,7 +3,6 @@ package utils
 import (
 	"bytes"
 	"errors"
-	"github.com/bwmarrin/discordgo"
 	"html"
 	"html/template"
 	"log"
@@ -11,6 +10,8 @@ import (
 	"os"
 	"strings"
 	"time"
+
+	"github.com/bwmarrin/discordgo"
 )
 
 var PREFIX string
@@ -51,7 +52,7 @@ func DeleteOnlineUser(userId string) {
 
 func Random(min, max int) int {
 	rand.Seed(time.Now().Unix())
-	return rand.Intn(max - min) + min
+	return rand.Intn(max-min) + min
 }
 
 func LogError(v ...interface{}) {
